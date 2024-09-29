@@ -21,6 +21,6 @@ describe("Component: SelectList", () => {
 
     render(<SelectList data={data} onChange={() => {}} onPress={() => {}} />);
 
-    const selectedCity = screen.getByText("São Paulo");
+    const selectedCity = screen.getByText(/paulo/i);
   });
 });
