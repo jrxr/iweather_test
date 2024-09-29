@@ -26,5 +26,7 @@ describe("Component: SelectList", () => {
     const selectedCity = screen.getByText(/paulo/i);
 
     fireEvent.press(selectedCity);
+
+    expect(onPress).toBeCalledWith(data[1]);
   });
 });
