@@ -19,7 +19,9 @@ describe("Component: SelectList", () => {
       },
     ];
 
-    render(<SelectList data={data} onChange={() => {}} onPress={() => {}} />);
+    const onPress = jest.fn();
+
+    render(<SelectList data={data} onChange={() => {}} onPress={onPress} />);
 
     const selectedCity = screen.getByText(/paulo/i);
 
