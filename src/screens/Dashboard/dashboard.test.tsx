@@ -1,5 +1,10 @@
 import { mockWeatherAPIResponse } from "@__tests__/mocks/api/mockWeatherAPIResponse";
-import { render, waitFor, screen } from "@__tests__/utils/customRender";
+import {
+  render,
+  waitFor,
+  screen,
+  waitForElementToBeRemoved,
+} from "@__tests__/utils/customRender";
 import { api } from "@services/api";
 import { Dashboard } from "@screens/Dashboard";
 import { saveStorageCity } from "@libs/asyncStorage/cityStorage";
@@ -40,5 +45,9 @@ describe("Screen: Dashboard", () => {
       .mockResolvedValueOnce({ data: mockWeatherAPIResponse })
       .mockRejectedValueOnce({ data: mockCityAPIResponse })
       .mockRejectedValueOnce({ data: mockWeatherAPIResponse });
+
+    render(<Dashboard />);
+
+    waitForElementToBeRemoved(() => screen.queryByTestId("loading"));
   });
 });
