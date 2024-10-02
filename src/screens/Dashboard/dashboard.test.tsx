@@ -3,6 +3,7 @@ import { render, waitFor, screen } from "@__tests__/utils/customRender";
 import { api } from "@services/api";
 import { Dashboard } from "@screens/Dashboard";
 import { saveStorageCity } from "@libs/asyncStorage/cityStorage";
+import { mockCityAPIResponse } from "@__tests__/mocks/api/mockCityAPIResponse";
 
 describe("Screen: Dashboard", () => {
   it("Should be show city weather.", async () => {
@@ -22,5 +23,22 @@ describe("Screen: Dashboard", () => {
     const cityName = await waitFor(() => screen.findByText(/rio do sul/i));
 
     expect(cityName).toBeTruthy();
+  });
+
+  it("Should be show another selected weather city.", async () => {
+    const city = {
+      id: "1",
+      name: "Rio do Sul, BR",
+      latitude: 123,
+      longitude: 456,
+    };
+
+    await saveStorageCity(city);
+
+    jest
+      .spyOn(api, "get")
+      .mockResolvedValueOnce({ data: mockWeatherAPIResponse })
+      .mockRejectedValueOnce({ data: mockCityAPIResponse })
+      .mockRejectedValueOnce({ data: mockWeatherAPIResponse });
   });
 });
